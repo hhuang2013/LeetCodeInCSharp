@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="171_ExcelSheetColumnNumber.cs" />
+    <Compile Include="1_TwoSum.cs" />
     <Compile Include="226_InvertBinaryTree.cs" />
     <Compile Include="237_DeleteNodeInALinkedList.cs" />
     <Compile Include="28_ImplementStrStr.cs" />
@@ -51,6 +52,8 @@
     <Compile Include="107_LevelOrderBinaryTreeTraversalII.cs" />
     <Compile Include="191_NumberOf1Bits.cs" />
     <Compile Include="235_LowestCommonAncestorOfABinarySearchTree.cs" />
+    <Compile Include="2_AddTwoNumbers.cs" />
+    <Compile Include="498_DiagonalTraverse.cs" />
     <Compile Include="66_PlusOne.cs" />
     <Compile Include="217_ContainsDuplicate.cs" />
     <Compile Include="168_ExcelSheetColumnTitle.cs" />
