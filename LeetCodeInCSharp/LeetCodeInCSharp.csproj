@@ -53,6 +53,7 @@
     <Compile Include="191_NumberOf1Bits.cs" />
     <Compile Include="235_LowestCommonAncestorOfABinarySearchTree.cs" />
     <Compile Include="2_AddTwoNumbers.cs" />
+    <Compile Include="3_LengthOfLongestSubstring.cs" />
     <Compile Include="498_DiagonalTraverse.cs" />
     <Compile Include="66_PlusOne.cs" />
     <Compile Include="217_ContainsDuplicate.cs" />

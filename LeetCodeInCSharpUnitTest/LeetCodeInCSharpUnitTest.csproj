@@ -65,6 +65,7 @@
     <Compile Include="UnitTest13_RomanToInteger.cs" />
     <Compile Include="UnitTest12_IntegerToRoman.cs" />
     <Compile Include="UnitTest1_TwoSum.cs" />
+    <Compile Include="UnitTest3_LengthOfLongestSubstring.cs" />
     <Compile Include="UnitTest498_DiagonalTraverse.cs" />
     <Compile Include="UnitTest70_ClimbingStairs.cs" />
     <Compile Include="UnitTest292_NimGame.cs" />
