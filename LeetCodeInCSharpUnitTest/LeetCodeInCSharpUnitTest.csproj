@@ -67,6 +67,7 @@
     <Compile Include="UnitTest1_TwoSum.cs" />
     <Compile Include="UnitTest3_LengthOfLongestSubstring.cs" />
     <Compile Include="UnitTest498_DiagonalTraverse.cs" />
+    <Compile Include="UnitTest5_LongestPalindromicSubstring.cs" />
     <Compile Include="UnitTest70_ClimbingStairs.cs" />
     <Compile Include="UnitTest292_NimGame.cs" />
     <Compile Include="UnitTest83_RemoveDuplicatesFromSortedList.cs" />
