@@ -8,7 +8,7 @@ namespace LeetCodeInCSharpUnitTest
     public class UnitTest3_LengthOfLongestSubstring
     {
         [TestMethod]
-        public void TestMethodLengthOfLongestSubstring()
+        public void T003_LengthOfLongestSubstring()
         {
             Assert.AreEqual(3,LengthOfLongestSubstringSolution.LengthOfLongestSubstring("abcabcbb"));
             Assert.AreEqual(1, LengthOfLongestSubstringSolution.LengthOfLongestSubstring("bbbbb"));

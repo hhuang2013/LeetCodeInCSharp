@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="005_LongestPalindromicSubstring.cs" />
     <Compile Include="171_ExcelSheetColumnNumber.cs" />
     <Compile Include="1_TwoSum.cs" />
     <Compile Include="226_InvertBinaryTree.cs" />
