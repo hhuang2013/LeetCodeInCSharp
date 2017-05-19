@@ -10,6 +10,7 @@ namespace LeetCodeInCSharpUnitTest
         [TestMethod]
         public void T005__LongestPalindromicSubstring()
         {
+            //Assert.AreEqual("abcbabcba", LongestPalindromicSubstringSolution.LongestPalindrome("babcbabcbaccba "));
             Assert.AreEqual("bab", LongestPalindromicSubstringSolution.LongestPalindrome("babad"));
             Assert.AreEqual("bb", LongestPalindromicSubstringSolution.LongestPalindrome("cbbd"));
             Assert.AreEqual("bbbbbbbb", LongestPalindromicSubstringSolution.LongestPalindrome("bbbbbbbb"));
