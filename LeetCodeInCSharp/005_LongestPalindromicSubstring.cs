@@ -81,66 +81,70 @@ namespace LeetCodeInCSharp
             int N = s.Length;
             if (N == 0)
                 return "";
-            N = 2 * N + 1; //Position count
+            N = 2 * N - 1; //Position count
             int[] L = new int[N]; //LPS Length Array
-            L[0] = 0;
-            L[1] = 1;
-            int C = 1; //centerPosition 
-            int R = 2; //centerRightPosition
+            L[0] = 1;
+            int C = 0; //centerPosition 
+            int R = 0; //centerRightPosition
             int i = 0; //currentRightPosition
             int iMirror; //currentLeftPosition
-            int maxLPSLength = 0;
+            int maxLPSLength = 1;
             int maxLPSCenterPosition = 0;
             int start = -1;
             int end = -1;
             int diff = -1;
-            int expand = -1;
+            bool expand = false;
+            bool isLetter;
+            int exStart=0;
 
-            //Uncomment it to print LPS Length array
-            //printf("%d %d ", L[0], L[1]);
-            for (i = 2; i < N; i++)
+            for (i = 1; i < N; i++)
             {
-                //get currentLeftPosition iMirror for currentRightPosition i
-                iMirror = 2 * C - i;
-                //Reset expand - means no expansion required
-                expand = 0;
-                diff = R - i;
-                //If currentRightPosition i is within centerRightPosition R
-                if (diff > 0)
+                isLetter = (i % 2) == 0;
+
+                if (i > R)
                 {
-                    if (L[iMirror] < diff) // Case 1
-                        L[i] = L[iMirror];
-                    else if (L[iMirror] == diff && i == N - 1) // Case 2
-                        L[i] = L[iMirror];
-                    else if (L[iMirror] == diff && i < N - 1)  // Case 3
-                    {
-                        L[i] = L[iMirror];
-                        expand = 1;  // expansion required
-                    }
-                    else if (L[iMirror] > diff)  // Case 4
-                    {
-                        L[i] = diff;
-                        expand = 1;  // expansion required
-                    }
+                    expand = true;
+                    exStart = 1;
+                    L[i] = isLetter ? 1 : 0;
                 }
                 else
                 {
-                    L[i] = 0;
-                    expand = 1;  // expansion required
+                    iMirror = 2 * C - i;
+                    diff = i - C;
+                    if ((L[iMirror] + diff) < L[C])
+                    {
+                        L[i] = L[iMirror];
+                    }
+                    else
+                    {
+                        expand = true;
+                        L[i] = L[iMirror];
+                        exStart = isLetter ? (L[iMirror] - 1) / 2 : L[iMirror] / 2;
+                    }
                 }
 
-                if (expand == 1)
+                if (expand)
                 {
-                    //Attempt to expand palindrome centered at currentRightPosition i
-                    //Here for odd positions, we compare characters and 
-                    //if match then increment LPS Length by ONE
-                    //If even position, we just increment LPS by ONE without 
-                    //any character comparison
-                    while (((i + L[i]) < N && (i - L[i]) > 0) &&
-                        (((i + L[i] + 1) % 2 == 0) ||
-                        (s[(i + L[i] + 1) / 2] == s[(i - L[i] - 1) / 2])))
+                    if (isLetter)
                     {
-                        L[i]++;
+                        start = i / 2 - exStart;
+                        end = i / 2 + exStart;
+                    }
+                    else
+                    {
+                        start = (i + 1) / 2 - exStart;
+                        end = (i - 1) / 2 + exStart;
+                    }
+                    while (start >= 0 && end < s.Length)
+                    {
+                        if (s[start] == s[end])
+                        {
+                            L[i] += 2;
+                            start--;
+                            end++;
+                        }
+                        else
+                            break;
                     }
                 }
 
@@ -150,25 +154,90 @@ namespace LeetCodeInCSharp
                     maxLPSCenterPosition = i;
                 }
 
-                // If palindrome centered at currentRightPosition i 
-                // expand beyond centerRightPosition R,
-                // adjust centerPosition C based on expanded palindrome.
-                if (i + L[i] > R)
+                if (i + Math.Max(0, L[0] - 2) > R)
                 {
                     C = i;
-                    R = i + L[i];
+                    R = i + +Math.Max(0, L[0] - 2);
                 }
-                //Uncomment it to print LPS Length array
-                //printf("%d ", L[i]);
             }
-            //printf("\n");
-            start = (maxLPSCenterPosition - maxLPSLength) / 2;
-            end = start + maxLPSLength - 1;
+            int span= maxLPSLength%2==0?maxLPSLength/2:(maxLPSLength-1)/2;
+            start = maxLPSCenterPosition % 2 == 0 ? maxLPSCenterPosition / 2 - span : (maxLPSCenterPosition + 1) / 2 - span;
             return s.Substring(start, maxLPSLength);
-            //printf("LPS of string is %s : ", text);
-            //for(i=start; i<=end; i++)
-            //    printf("%c", text[i]);
-            //printf("\n");
         }
+
+        //        //Uncomment it to print LPS Length array
+        //        //printf("%d %d ", L[0], L[1]);
+        //        for (i = 2; i < N; i++)
+        //        {
+        //            //get currentLeftPosition iMirror for currentRightPosition i
+        //            iMirror = 2 * C - i;
+        //            //Reset expand - means no expansion required
+        //            expand = 0;
+        //            diff = R - i;
+        //            //If currentRightPosition i is within centerRightPosition R
+        //            if (diff > 0)
+        //            {
+        //                if (L[iMirror] < diff) // Case 1
+        //                    L[i] = L[iMirror];
+        //                else if (L[iMirror] == diff && i == N - 1) // Case 2
+        //                    L[i] = L[iMirror];
+        //                else if (L[iMirror] == diff && i < N - 1)  // Case 3
+        //                {
+        //                    L[i] = L[iMirror];
+        //                    expand = 1;  // expansion required
+        //                }
+        //                else if (L[iMirror] > diff)  // Case 4
+        //                {
+        //                    L[i] = diff;
+        //                    expand = 1;  // expansion required
+        //                }
+        //            }
+        //            else
+        //            {
+        //                L[i] = 0;
+        //                expand = 1;  // expansion required
+        //            }
+
+        //            if (expand == 1)
+        //            {
+        //                //Attempt to expand palindrome centered at currentRightPosition i
+        //                //Here for odd positions, we compare characters and 
+        //                //if match then increment LPS Length by ONE
+        //                //If even position, we just increment LPS by ONE without 
+        //                //any character comparison
+        //                while (((i + L[i]) < N && (i - L[i]) > 0) &&
+        //                    (((i + L[i] + 1) % 2 == 0) ||
+        //                    (s[(i + L[i] + 1) / 2] == s[(i - L[i] - 1) / 2])))
+        //                {
+        //                    L[i]++;
+        //                }
+        //            }
+
+        //            if (L[i] > maxLPSLength)  // Track maxLPSLength
+        //            {
+        //                maxLPSLength = L[i];
+        //                maxLPSCenterPosition = i;
+        //            }
+
+        //            // If palindrome centered at currentRightPosition i 
+        //            // expand beyond centerRightPosition R,
+        //            // adjust centerPosition C based on expanded palindrome.
+        //            if (i + L[i] > R)
+        //            {
+        //                C = i;
+        //                R = i + L[i];
+        //            }
+        //            //Uncomment it to print LPS Length array
+        //            //printf("%d ", L[i]);
+        //        }
+        //    //printf("\n");
+        //    start = (maxLPSCenterPosition - maxLPSLength) / 2;
+        //    end = start + maxLPSLength - 1;
+        //    return s.Substring(start, maxLPSLength);
+        //    //printf("LPS of string is %s : ", text);
+        //    //for(i=start; i<=end; i++)
+        //    //    printf("%c", text[i]);
+        //    //printf("\n");
+        //}
     }
 }
